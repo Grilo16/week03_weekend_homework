@@ -5,9 +5,8 @@
 <h1>Fuj off you wannabe hacker</h1>
 {% endif %}
 
-<!-- Loads page is auth success -->
-{% if user.login_auth %}
-<h1>Welcome {{user.name}}</h1>
+
+<div class="list-books">
 
 <!-- Renders message if no books rented -->
 {% if user.books|count < 1 %}
@@ -17,15 +16,27 @@
 <!-- Renders list of books rented -->
 {% if user.books|count > 0 %}
 <h2>Currently rented books</h2>
-{% for book in user.books %}
-    <h3>{{book.title}}</h3>
-    <p><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
+
+<!-- <div class="book-display"> -->
     <form action="/{{user.userid}}/return" method="post">
-        <input type="checkbox" name="{{book.title}}" id="">
-        {% endfor %}
-        <input type="submit" value="return selected books"> 
-    </form>
+    {% for book in user.books %}
+    {% if book in book_list %}
+    
+    <div class="book-rented">
+        <h3>{{book.title}}</h3>
+        <p><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
+            <input id="checkbox" type="checkbox" name="{{book.title}}" id="">
+    </div>
+    {% endif %}
+    {% endfor %}
+    <input type="submit" value="return selected books"> 
+</div>
+</form>
 {% endif %}
+</div>
+
+
+<div class="list-books-not-rented">
 
 <!-- Display message if no books are available -->
 {% if available_books|count < 1 %}
@@ -35,18 +46,25 @@
 <!-- Show list of available books for rental -->
 {% if available_books|count > 0 %}
 <h2>Books available for rental</h2>
+<div class="book-display">
+
 {% for book in available_books %}
+<form action="/{{user.userid}}/rent" method="post">
+<div class="book-not-rented">
+
     <h3>{{book.title}}</h3>
     <p><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
-    <form action="/{{user.userid}}/rent" method="post">
-        <input type="checkbox" name="{{book.title}}">
+        <input id="checkbox" type="checkbox" name="{{book.title}}">
+    </div>
+
         {% endfor %}
-        <br>
+    </div>
+        
         <input type="submit", value="Rent Selected Books">
     </form>
-
+    
 {% endif %}
-{% endif %}
+</div>
 
 
 {% endblock %}

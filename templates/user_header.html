@@ -15,13 +15,19 @@
         <a href="/log_out/{{user.userid}}">Log out</a>
     </nav>
     <hr>
-    <h1>
-        {{page_h1}}
-    </h1> 
-    
-    {% block contents %}
+    <section class="contents-section-back">
 
-    {% endblock %}
+        {% if user.login_auth %}
+        <h1>Welcome {{user.name}}</h1>
+    <section class="contents-section">
+    
+
+        {% block contents %}
+        
+        {% endblock %}
+        {% endif %}
+    </section>
+    </section>
     
 </body>
 </html>

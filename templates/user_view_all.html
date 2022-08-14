@@ -8,22 +8,30 @@
 
 <!-- Render if auth success -->
 {% if user.login_auth %}
-<h1>{{user.name}}</h1>
 
 <!-- Render if user is admin -->
 {% if user.admin == True %}
-<section>
+<section class="admin-add-book">
     <form action="/{{user.userid}}/new_book" method="post">
+        
+        <label for="title">Book title</label>
         <input type="text" name="title">
-        <input type="text" name="genre">
+        <br>
+        <label for="author">Author</label>
+        <br>
         <input type="text" name="author">
+        <br>
+        <label for="genre">Genre</label>
+        <br>
+        <input type="text" name="genre">
         <input type="submit" value="Add Book">
     </form>
 </section>
 {% endif %}
 
 <!-- Render all books -->
-{% for book in book_list %}
+<div class="book-display-all">
+    {% for book in book_list %}
 
 <!-- Div if has been checked out -->
 {% if book.checked_out %}
@@ -36,30 +44,35 @@
         {% endif %}
         
         <!-- Each book name and detail link -->
-        <h3>{{book.title}}</h3>
-        <p><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
+        <h4 class="book-element-display-title">{{book.title}}</h4>
+        <p class="book-element-display"><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
+
         <!-- Show who has rented it -->
         {% if not book.checked_out %}
-        <p>Available</p>
+        <p class="book-element-display">Book available</p>
         {% endif %}
         
         {% if book.checked_out %}
-        <p>currently rented by {{book.checked_out}}</p>
+        <p class="book-element-display">rented by {{book.checked_out}}</p>
         {% endif %}
-
+        
         <!-- Render if user is admin -->
         {% if user.admin %}
         <form action="/{{user.userid}}/delete" method="post">
-            
-            <input type="checkbox" name="{{book.title}}" id="">
+            <input class="book-element-display" type="checkbox" name="{{book.title}}">
             {% endif %}
+        </div>
             {% endfor %}
-            <!-- Render if user is admin -->
+        </div>
+    </div>
+
+        <!-- Render if user is admin -->
+        
             {% if user.admin %}
+            
             <input type="submit" value="Delete Selected Books"> 
             </form>
             {% endif %}
-
 <!-- Message if no books in database -->
 {% if book_list|count < 1 %}
 <h2>There are no books in the database</h2>

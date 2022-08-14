@@ -2,9 +2,10 @@
 
 {% block contents %}
 
-<section>
+<section class="guest-home-section">
     <h2>Login</h2>
-    <form method="post" action="/validate_login">
+    <section class="guest-home-section-contents">
+    <form class="forms" method="post" action="/validate_login">
         <label for="name">Username</label>
         <input name="name" type="text">
         <label for="password">password</label>
@@ -12,18 +13,22 @@
         <input type="submit" value="Log In">
     </form>
 </section>
-
-<section>
+</section>
+<p>or</p>
+<section class="guest-home-section">
     <h2>Sign up</h2>
-    <form method="post" action="/create_account">
-        <label for="name">Username</label>
-        <input name="name" type="text">
-        <label for="password">password</label>
-        <input name="password" type="password">
-        <label for="password-repeat">repeat password</label>
-        <input name="password-repeat" type="password">
-        <input type="submit" value="Create account">
-    </form>
+    <div class="guest-home-section-contents">
+    <form class="forms" method="post" action="/create_account">
+
+            <label for="name">Username</label>
+            <input name="name" type="text">
+            <label for="password">password</label>
+            <input name="password" type="password">
+            <label for="password-repeat">repeat password</label>
+            <input name="password-repeat" type="password">
+            <input type="submit" value="Create account">
+        </form>
+</div>
 </section>
 
     {% endblock %}

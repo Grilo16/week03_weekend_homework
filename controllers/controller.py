@@ -136,13 +136,3 @@ def about_us(user_id):
     return render_template("about_us.html", user=user)
         
         
-        
-    
-    
-    
-# @app.route("/test")
-# def test_page():
-#     add_user(user_by_name, user_by_id, User("a", "1"))
-#     print(user_by_name)
-#     return render_template("test_page.html")
-    

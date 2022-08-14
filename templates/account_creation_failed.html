@@ -2,34 +2,21 @@
 
 {% block contents %}
 
-<h2>Failed account creation</h2>
+<h3>account creation unssucessfull</h3>
 
-{% if reason == "passnomatch" %}
-<h2>The passwords inputed do not match</h2>
-{% endif %}
+<section class="guest-home-section">
+    <h2>Try again </h2>
+    <section class="guest-home-section-contents">
 
-{% if reason == "userexists" %}
-<h2>This username has been taken</h2>
-<h2>Login</h2>
-<form method="post" action="/validate_login">
-    <label for="name">Username</label>
-    <input name="name" type="text">
-    <label for="password">password</label>
-    <input name="password" type="password">
-    <input type="submit" value="Log In">
-</form>
-<h2>Or</h2>
-{% endif %}
-
-
-<h2>Try to sign up again</h2>
-<form method="post" action="/create_account">
-    <label for="name">Username</label>
-    <input name="name" type="text">
-    <label for="password">password</label>
-    <input name="password" type="password">
-    <label for="password-repeat">repeat password</label>
-    <input name="password-repeat" type="password">
-    <input type="submit" value="Create account">
-</form>
-{% endblock %}
+    <form class="forms "method="post" action="/create_account">
+        <label for="name">Username</label>
+        <input name="name" type="text">
+        <label for="password">password</label>
+        <input name="password" type="password">
+        <label for="password-repeat">repeat password</label>
+        <input name="password-repeat" type="password">
+        <input type="submit" value="Create account">
+    </form>
+</section>
+</section>
+    {% endblock %}

@@ -13,13 +13,38 @@
         <a href="/about_us/guest">About us</a>
     </nav>
     <hr>
-    <h1>
-        {{page_h1}}
-    </h1> 
-    
-    {% block contents %}
+    <section class="contents-section-back">
+        {% if reason == "wrong_pass" %}
+<h1>Wrong password<h1>
+{% endif %}
+{% if reason == "no_user" %}
+<h1>User not registered</h1>
+{% endif %}
 
-    {% endblock %}
+{% if reason == "userexists" %}
+<h1>This username has been taken</h1>
+
+{% endif %}
+{% if reason == "passnomatch" %}
+<h1>The passwords inputed do not match</h1>
+{% endif %}
+{% if reason == "blankform" %}
+<h1>Please fill in fields correctly</h1>
+{% endif %}
+
+        <h1>
+            {{page_h1}}
+        </h1> 
+
+        <section class="contents-section">
+
+
+        {% block contents %}
+        
+        {% endblock %}
+
+    </section>
+    </section>
     
 </body>
 </html>

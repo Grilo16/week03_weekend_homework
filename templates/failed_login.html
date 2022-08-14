@@ -2,26 +2,22 @@
 
 {% block contents %}
 
-{% if reason == "no_user" %}
-<h2>User not registered please try again or sign up</h2>
-{% endif %}
-
-{% if reason == "wrong_pass" %}
-<h2>Wrong password please try again</h2>
-{% endif %}
-
-<h2>Tro to Login again</h2>
-<form method="post" action="/validate_login">
+<section class="guest-home-section">
+<h2>Try again</h2>
+<form class="forms" method="post" action="/validate_login">
     <label for="name">Username</label>
     <input name="name" type="text">
     <label for="password">password</label>
     <input name="password" type="password">
     <input type="submit" value="Log In">
 </form>
+</section>
 
 {% if reason == "no_user" %}
+<section class="guest-home-section">
+
 <h2>Or sign up</h2>
-<form method="post" action="/create_account">
+<form class="forms" method="post" action="/create_account">
     <label for="name">Username</label>
     <input name="name" type="text">
     <label for="password">password</label>
@@ -30,6 +26,7 @@
     <input name="password-repeat" type="password">
     <input type="submit" value="Create account">
 </form>
+</section>
 {% endif %}
 
 {% endblock %}
