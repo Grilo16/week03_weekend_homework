@@ -10,14 +10,10 @@ from models.user_list import user_by_name
 from models.user_list import user_by_id
 from models.user_list import add_user
 
+# Home not logged in
 @app.route("/")
 def homepage():
     return render_template("index.html", page_title = "Page title", page_h1 = "Welcome to CodeClan Book rentals", book_list = book_list) 
-   
-# Log in page
-@app.route("/login")
-def log_in():
-    return render_template("login.html")
 
 # Check login and password and change authentication status
 @app.route("/validate_login", methods=["POST"])
