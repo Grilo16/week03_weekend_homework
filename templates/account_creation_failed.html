@@ -1,0 +1,35 @@
+{% extends "header_template.html" %}
+
+{% block contents %}
+
+<h2>Failed account creation</h2>
+
+{% if reason == "passnomatch" %}
+<h2>The passwords inputed do not match</h2>
+{% endif %}
+
+{% if reason == "userexists" %}
+<h2>This username has been taken</h2>
+<h2>Login</h2>
+<form method="post" action="/validate_login">
+    <label for="name">Username</label>
+    <input name="name" type="text">
+    <label for="password">password</label>
+    <input name="password" type="password">
+    <input type="submit" value="Log In">
+</form>
+<h2>Or</h2>
+{% endif %}
+
+
+<h2>Try to sign up again</h2>
+<form method="post" action="/create_account">
+    <label for="name">Username</label>
+    <input name="name" type="text">
+    <label for="password">password</label>
+    <input name="password" type="password">
+    <label for="password-repeat">repeat password</label>
+    <input name="password-repeat" type="password">
+    <input type="submit" value="Create account">
+</form>
+{% endblock %}

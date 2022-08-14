@@ -1,0 +1,9 @@
+{% extends "header_template.html" %}
+{% block contents %}
+<h2>Account creation success</h2>
+<form action="/validate_login" method="post">
+    <input type="hidden" name="name" value="{{user.name}}">
+    <input type="hidden" name="password" value="{{user.password}}">
+    <input type="submit" value="Log In">
+</form>
+{% endblock %}

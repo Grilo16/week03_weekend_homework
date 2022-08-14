@@ -1,0 +1,35 @@
+{% extends "header_template.html" %}
+
+{% block contents %}
+
+{% if reason == "no_user" %}
+<h2>User not registered please try again or sign up</h2>
+{% endif %}
+
+{% if reason == "wrong_pass" %}
+<h2>Wrong password please try again</h2>
+{% endif %}
+
+<h2>Tro to Login again</h2>
+<form method="post" action="/validate_login">
+    <label for="name">Username</label>
+    <input name="name" type="text">
+    <label for="password">password</label>
+    <input name="password" type="password">
+    <input type="submit" value="Log In">
+</form>
+
+{% if reason == "no_user" %}
+<h2>Or sign up</h2>
+<form method="post" action="/create_account">
+    <label for="name">Username</label>
+    <input name="name" type="text">
+    <label for="password">password</label>
+    <input name="password" type="password">
+    <label for="password-repeat">repeat password</label>
+    <input name="password-repeat" type="password">
+    <input type="submit" value="Create account">
+</form>
+{% endif %}
+
+{% endblock %}

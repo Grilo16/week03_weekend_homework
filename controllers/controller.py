@@ -10,14 +10,10 @@ from models.user_list import user_by_name
 from models.user_list import user_by_id
 from models.user_list import add_user
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def homepage():
-    if request.method == "GET":
-        return render_template("index.html", page_title = "Page title", page_h1 = "Page h1", book_list = book_list) 
-    elif request.method == "POST":
-        book_list.append(Book(**request.form))
-        return redirect("/")
-
+    return render_template("index.html", page_title = "Page title", page_h1 = "Welcome to CodeClan Book rentals", book_list = book_list) 
+   
 # Log in page
 @app.route("/login")
 def log_in():
@@ -27,13 +23,18 @@ def log_in():
 @app.route("/validate_login", methods=["POST"])
 def validate_login():
     login_details = request.form
-    if (username := login_details["name"]) in user_by_name.keys():
-        user = user_by_name[username]
-        print(user)
-        if login_details["password"] == user.password:
-            user.login()
-            return redirect(f"/{user.userid}/homepage")
-    return redirect("/login")
+    if not (username := login_details["name"]) in user_by_name.keys():
+        return redirect("/login_failed/no_user")
+    user = user_by_name[username]
+    if not login_details["password"] == user.password:
+        return redirect("/login_failed/wrong_pass")
+    user.login()
+    return redirect(f"/{user.userid}/homepage")
+
+# Deal with failed login
+@app.route("/login_failed/<reason>")
+def failed_login(reason):
+    return render_template("failed_login.html", reason=reason)
 
 # Log user out changing auth status
 @app.route("/log_out/<user_id>")
@@ -41,6 +42,28 @@ def log_out(user_id):
     user = user_by_id[user_id]
     user.log_out()
     return redirect("/")
+
+# Create new account
+@app.route("/create_account", methods=["POST"])
+def create_account():
+    if not request.form["password"] == request.form["password-repeat"]:
+        return redirect(f"/create_account/failed/passnomatch")
+    if request.form["name"] in user_by_name.keys():
+        return redirect(f"/create_account/failed/userexists")
+    new_user = User(request.form["name"],request.form["password"])
+    add_user(user_by_name, user_by_id, new_user)
+    return redirect (f"/create_account/{new_user.userid}/success")
+
+# Account creation success
+@app.route("/create_account/<user_id>/success")
+def create_account_success(user_id):
+    user = user_by_id[user_id]
+    return render_template("account_creation_success.html", user=user)
+
+# Deal with failed account creation
+@app.route("/create_account/failed/<reason>")
+def account_create_failed(reason):
+    return render_template("account_creation_failed.html", reason=reason)
 
 # User homepage
 @app.route("/<user_id>/homepage")
