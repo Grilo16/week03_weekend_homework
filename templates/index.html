@@ -1,6 +1,30 @@
 {% extends "header_template.html" %}
 
 {% block contents %}
+<section>
+    <form method="post">
+        <input type="text" name="title">
+        <input type="text" name="genre">
+        <input type="text" name="author">
+        <input type="submit" value="Add Book">
+    </form>
+</section>
 
-<p>adfasdfasdf </p>
-{% endblock %}
+<section>
+    {% for book in book_list %}
+    {% if book.checked_out %}
+    <div class = checked-out>
+{% endif %}
+
+{% if not book.checked_out %}
+    <div class = not-checked-out>
+{% endif %}
+    <p><a href="book/{{ book_list.index(book) }}">{{book.title}}</a></p>
+    <form action="book/delete/{{ book_list.index(book) }}" method="post">
+            <input type="submit" value="Delete Book">
+        </form>
+    </form>
+    </div>
+    {% endfor %}
+</section>
+    {% endblock %}
