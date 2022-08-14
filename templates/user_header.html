@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{page_title}}</title>
+</head>
+<body>
+    <nav>
+        <a href="/{{user.userid}}/homepage">Homepage</a>
+        <a href="/{{user.userid}}/all_books">View all books</a>
+        <a href="/log_out/{{user.userid}}">Log out</a>
+    </nav>
+    <hr>
+    <h1>
+        {{page_h1}}
+    </h1> 
+    
+    {% block contents %}
+
+    {% endblock %}
+    
+</body>
+</html>

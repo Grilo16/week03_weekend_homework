@@ -1,0 +1,63 @@
+{% extends "user_header.html" %}
+
+{% block contents %}
+<!-- Render if auth fails -->
+{% if user.login_auth == False %}
+<h1>Fuj off you wannabe hacker</h1>
+{% endif %}
+
+<!-- Render if auth success -->
+{% if user.login_auth %}
+<h1>{{user.name}}</h1>
+
+<!-- Render if user is admin -->
+{% if user.admin == True %}
+<section>
+    <form action="/{{user.userid}}/new_book" method="post">
+        <input type="text" name="title">
+        <input type="text" name="genre">
+        <input type="text" name="author">
+        <input type="submit" value="Add Book">
+    </form>
+</section>
+{% endif %}
+
+<!-- Render all books -->
+{% for book in book_list %}
+
+<!-- Div if has been checked out -->
+{% if book.checked_out %}
+<div class = checked-out>
+    {% endif %}
+    
+    <!-- Div if has not been checked out -->
+    {% if not book.checked_out %}
+    <div class = not-checked-out>
+        {% endif %}
+        
+        <!-- Each book name and detail link -->
+        <h3>{{book.title}}</h3>
+        <p><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
+        
+        <!-- Render if user is admin -->
+        {% if user.admin %}
+        <form action="/{{user.userid}}/delete" method="post">
+            
+            <input type="checkbox" name="{{book.title}}" id="">
+            {% endif %}
+            {% endfor %}
+            <!-- Render if user is admin -->
+            {% if user.admin %}
+            <input type="submit" value="Delete Selected Books"> 
+            </form>
+            {% endif %}
+
+<!-- Message if no books in database -->
+{% if book_list|count < 1 %}
+<h2>There are no books in the database</h2>
+{% endif %}
+</div>
+
+
+{% endif %}
+{% endblock %}

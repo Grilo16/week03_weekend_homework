@@ -1,0 +1,52 @@
+{% extends "user_header.html" %}
+{% block contents %}
+<!-- Loads hacker message if auth is false -->
+{% if user.login_auth == False %}
+<h1>Fuj off you wannabe hacker</h1>
+{% endif %}
+
+<!-- Loads page is auth success -->
+{% if user.login_auth %}
+<h1>Welcome {{user.name}}</h1>
+
+<!-- Renders message if no books rented -->
+{% if user.books|count < 1 %}
+    <h2>You have no rented books</h2>
+{% endif %}
+
+<!-- Renders list of books rented -->
+{% if user.books|count > 0 %}
+<h2>Currently rented books</h2>
+{% for book in user.books %}
+    <h3>{{book.title}}</h3>
+    <p><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
+    <form action="/{{user.userid}}/return" method="post">
+        <input type="checkbox" name="{{book.title}}" id="">
+        {% endfor %}
+        <input type="submit" value="return selected books"> 
+    </form>
+{% endif %}
+
+<!-- Display message if no books are available -->
+{% if available_books|count < 1 %}
+<h2>There are no books available</h2>
+{% endif %}
+
+<!-- Show list of available books for rental -->
+{% if available_books|count > 0 %}
+<h2>Books available for rental</h2>
+{% for book in available_books %}
+    <h3>{{book.title}}</h3>
+    <p><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
+    <form action="/{{user.userid}}/rent" method="post">
+        <input type="checkbox" name="{{book.title}}">
+        {% endfor %}
+        <br>
+        <input type="submit", value="Rent Selected Books">
+    </form>
+
+{% endif %}
+{% endif %}
+
+
+{% endblock %}

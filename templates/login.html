@@ -1,0 +1,13 @@
+{% extends "header_template.html" %}
+
+{% block contents %}
+
+<form method="post" action="/validate_login">
+    <label for="name">Username</label>
+    <input name="name" type="text">
+    <label for="password">password</label>
+    <input name="password" type="password">
+    <input type="submit">
+</form>
+
+{% endblock %}
