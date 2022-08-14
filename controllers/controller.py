@@ -19,6 +19,9 @@ def homepage():
 @app.route("/validate_login", methods=["POST"])
 def validate_login():
     login_details = request.form
+    print(login_details)
+    if login_details["name"] == "":
+        return redirect("/login_failed/no_user")
     if not (username := login_details["name"]) in user_by_name.keys():
         return redirect("/login_failed/no_user")
     user = user_by_name[username]
@@ -42,6 +45,10 @@ def log_out(user_id):
 # Create new account
 @app.route("/create_account", methods=["POST"])
 def create_account():
+    if request.form["name"] == "":
+        return redirect(f"/create_account/failed/blankform")
+    if request.form["password"] == "":
+        return redirect(f"/create_account/failed/blankform")
     if request.form["name"] in user_by_name.keys():
         return redirect(f"/create_account/failed/userexists")
     if not request.form["password"] == request.form["password-repeat"]:
