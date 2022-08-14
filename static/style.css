@@ -172,7 +172,9 @@ input{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 2px;
-    background-color: #ffffff;
+    background-color: #282233;
+    border-color: #ff6b56;
+    border-style:solid;
 
 }
 
