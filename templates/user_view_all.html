@@ -38,7 +38,15 @@
         <!-- Each book name and detail link -->
         <h3>{{book.title}}</h3>
         <p><a href="/{{ user.userid }}/book/{{ book_list.index(book) }}">details</a></p>
+        <!-- Show who has rented it -->
+        {% if not book.checked_out %}
+        <p>Available</p>
+        {% endif %}
         
+        {% if book.checked_out %}
+        <p>currently rented by {{book.checked_out}}</p>
+        {% endif %}
+
         <!-- Render if user is admin -->
         {% if user.admin %}
         <form action="/{{user.userid}}/delete" method="post">

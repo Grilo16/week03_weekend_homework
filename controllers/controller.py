@@ -42,10 +42,10 @@ def log_out(user_id):
 # Create new account
 @app.route("/create_account", methods=["POST"])
 def create_account():
-    if not request.form["password"] == request.form["password-repeat"]:
-        return redirect(f"/create_account/failed/passnomatch")
     if request.form["name"] in user_by_name.keys():
         return redirect(f"/create_account/failed/userexists")
+    if not request.form["password"] == request.form["password-repeat"]:
+        return redirect(f"/create_account/failed/passnomatch")
     new_user = User(request.form["name"],request.form["password"])
     add_user(user_by_name, user_by_id, new_user)
     return redirect (f"/create_account/{new_user.userid}/success")
@@ -87,7 +87,7 @@ def user_rent_item(user_id):
     for book_name in request.form.keys():
         for book_object in book_list:
             if book_name == book_object.title:
-                book_object.check_out()
+                book_object.check_out(user.name)
                 user.rent_a_book(book_object)
                 break                
     return redirect(f"/{user_id}/homepage")

@@ -5,8 +5,8 @@ class Book:
         self.genre  = genre
         self.checked_out = False
 
-    def check_out(self):
-        self.checked_out = True
+    def check_out(self, user_name):
+        self.checked_out = user_name
 
     def check_in(self):
         self.checked_out = False
