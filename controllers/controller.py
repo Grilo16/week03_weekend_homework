@@ -119,14 +119,23 @@ def admin_delete_books(user_id):
                 book_list.remove(book_object)
                 break
     return redirect(f"/{user_id}/all_books")
+
+# About us page
+@app.route("/about_us/<user_id>")
+def about_us(user_id):
+    user = "guest"
+    if not user_id == "guest":
+        user = user_by_id[user_id]
+    return render_template("about_us.html", user=user)
         
         
+        
     
     
     
-@app.route("/test")
-def test_page():
-    add_user(user_by_name, user_by_id, User("a", "1"))
-    print(user_by_name)
-    return render_template("test_page.html")
+# @app.route("/test")
+# def test_page():
+#     add_user(user_by_name, user_by_id, User("a", "1"))
+#     print(user_by_name)
+#     return render_template("test_page.html")
     

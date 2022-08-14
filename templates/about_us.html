@@ -1,0 +1,12 @@
+
+{% if not user == "guest" %}
+{% extends "user_header.html" %}
+{% endif %}
+
+{% if user == "guest" %}
+{% extends "header_template.html" %}
+{% endif %}
+
+{% block contents %}
+<h2>some stuff about us here</h2>
+{% endblock %}
